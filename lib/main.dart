@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutterbeer/state/reducer.dart';
 import 'package:redux/redux.dart';
-import 'package:flutterbeer/add_beer_view.dart';
-import 'package:flutterbeer/create_testing.dart';
-import 'package:flutterbeer/join_testing.dart';
-import 'package:flutterbeer/vote.dart';
 
+import 'state/reducer.dart';
+import 'join_testing.dart';
+import 'vote.dart';
+import 'create_tasting/add_beer_view.dart';
+import 'create_tasting/create_testing.dart';
 import 'state/app_state.dart';
 
 void main() => runApp(MyApp());
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) => MainScreen(),
           '/create': (context) => CreateTesting(),
-          '/create/add': (context) => AddBeer(),
+          '/add': (context) => AddBeer(),
           '/join': (context) => JoinTesting(),
           '/vote': (context) => Vote()
         },

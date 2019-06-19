@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutterbeer/state/app_state.dart';
 import 'package:redux/redux.dart';
+
+import 'state/app_state.dart';
+import 'model/app_model.dart';
 
 class Vote extends StatelessWidget {
   @override
