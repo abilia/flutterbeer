@@ -16,7 +16,7 @@ class Vote extends StatelessWidget {
               RaisedButton(
                 child: Text('Back'),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/');
+                  Navigator.pop(context);
                 },
               ),
             ],
