@@ -4,7 +4,6 @@ import 'package:flutterbeer/state/reducer.dart';
 import 'package:redux/redux.dart';
 import 'package:flutterbeer/add_beer_view.dart';
 import 'package:flutterbeer/create_testing.dart';
-import 'package:flutterbeer/join_testing.dart';
 import 'package:flutterbeer/vote.dart';
 
 import 'state/app_state.dart';
@@ -29,7 +28,6 @@ class MyApp extends StatelessWidget {
           '/': (context) => MainScreen(),
           '/create': (context) => CreateTesting(),
           '/create/add': (context) => AddBeer(),
-          '/join': (context) => JoinTesting(),
           '/vote': (context) => Vote()
         },
         title: 'Flutter beer',
@@ -57,19 +55,22 @@ class MainScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            RaisedButton(
-                child: Text('Create'),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/create');
-                }),
-            RaisedButton(
-              child: Text('Vote'),
-              onPressed: () {
-                Navigator.pushNamed(context, '/vote');
+            StoreConnector<AppState, AppState>(
+              converter: (Store<AppState> store) => store.state,
+              builder: (context, state) {
+                return Column(
+                    children:
+                        state.tastings.map((t) => Text(t.title)).toList());
               },
-            )
+            ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/create');
+        },
+        child: Icon(Icons.add_box),
       ),
     );
   }
