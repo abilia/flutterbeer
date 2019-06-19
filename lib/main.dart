@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterbeer/add_beer_view.dart';
 import 'package:flutterbeer/create_testing.dart';
 import 'package:flutterbeer/join_testing.dart';
 import 'package:flutterbeer/vote.dart';
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => MainScreen(),
         '/create': (context) => CreateTesting(),
+        '/create/add': (context) => AddBeer(),
         '/join': (context) => JoinTesting(),
         '/vote': (context) => Vote()
       },
@@ -33,20 +35,27 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          RaisedButton(
-              child: Text("Create"),
+      appBar: AppBar(
+        leading: Icon(Icons.local_bar),
+        title: Text('flutter bear'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            RaisedButton(
+                child: Text('Create'),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/create');
+                }),
+            RaisedButton(
+              child: Text('Vote'),
               onPressed: () {
-                Navigator.pushNamed(context, '/create');
-              }),
-          RaisedButton(
-            child: Text("Vote"),
-            onPressed: () {
-              Navigator.pushNamed(context, '/vote');
-            },
-          )
-        ],
+                Navigator.pushNamed(context, '/vote');
+              },
+            )
+          ],
+        ),
       ),
     );
   }
