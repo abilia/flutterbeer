@@ -59,8 +59,14 @@ class MainScreen extends StatelessWidget {
               converter: (Store<AppState> store) => store.state,
               builder: (context, state) {
                 return Column(
-                    children:
-                        state.tastings.map((t) => Text(t.title)).toList());
+                    children: state.tastings
+                        .map((t) => RaisedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/vote',
+                                  arguments: t.id);
+                            },
+                            child: Text(t.title)))
+                        .toList());
               },
             ),
           ],
