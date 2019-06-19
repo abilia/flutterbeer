@@ -6,5 +6,5 @@ class AppState {
   AppState(this.tastings);
 
   factory AppState.initial() => AppState(
-      List.unmodifiable([BeerTasting("Tasting1"), BeerTasting("Tasting2")]));
+      List.unmodifiable([BeerTasting(title: "Tasting1"), BeerTasting(title: "Tasting2")]));
 }

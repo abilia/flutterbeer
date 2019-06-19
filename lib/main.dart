@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutterbeer/edit_views/edit_beer.dart';
+import 'package:flutterbeer/model/app_model.dart';
 import 'package:redux/redux.dart';
 
 import 'state/reducer.dart';
 import 'join_testing.dart';
 import 'vote.dart';
-import 'create_tasting/add_beer_view.dart';
-import 'create_tasting/create_testing.dart';
+import 'edit_views/create_testing.dart';
 import 'state/app_state.dart';
 
 void main() => runApp(MyApp());
@@ -27,14 +28,17 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => MainScreen(),
-          '/create': (context) => CreateTesting(),
-          '/add': (context) => AddBeer(),
+          CreateTesting.routeName: (context) => CreateTesting(BeerTasting()),
+          EditBeer.routeName: (context) => EditBeer(),
           '/join': (context) => JoinTesting(),
           '/vote': (context) => Vote()
         },
         title: 'Flutter beer',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.brown,
+          accentColor: Colors.orangeAccent,
+          buttonColor: Colors.orange,
+          scaffoldBackgroundColor: Colors.grey[200]
         ),
       ),
     );
@@ -60,7 +64,7 @@ class MainScreen extends StatelessWidget {
             RaisedButton(
                 child: Text('Create'),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/create');
+                  Navigator.pushNamed(context, CreateTesting.routeName);
                 }),
             RaisedButton(
               child: Text('Vote'),
