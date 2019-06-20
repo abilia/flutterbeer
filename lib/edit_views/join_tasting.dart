@@ -28,11 +28,14 @@ class JoinCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-        child: Text(beerTasting.title),
-        onPressed: () {
-          Navigator.pushNamed(context, Vote.routeName,
-              arguments: beerTasting.id);
-        });
+    return SizedBox(
+      width: double.infinity,
+      child: RaisedButton(
+          child: Text(beerTasting.title),
+          onPressed: () {
+            Navigator.pushNamed(context, Vote.routeName,
+                arguments: beerTasting.id);
+          }),
+    );
   }
 }
