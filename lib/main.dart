@@ -85,11 +85,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    return FlareActor('animations/tasting.flr',
-        alignment: Alignment.center,
-        fit: BoxFit.contain,
-        animation: 'beer',
-        callback: (s) => Navigator.pop(context),
-        );
+    return Container(
+      decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
+      child: FlareActor('animations/tasting.flr',
+          alignment: Alignment.center,
+          fit: BoxFit.contain,
+          animation: 'beer',
+          callback: (s) => Navigator.pop(context),
+          ),
+    );
   }
 }
