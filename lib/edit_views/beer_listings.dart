@@ -12,7 +12,11 @@ class BeerList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: standardPadding,
-      child: ListView(
+      child: beers.isEmpty ? Column(children: <Widget>[
+        Image.asset('assets/img_beer_placeholder.png'),
+        Text('no 🍺 yet :(', style: Theme.of(context).textTheme.display3,)
+      ],) :
+      ListView(
           children: beers
               .map((beer) => BeerCard(
                     beer: beer,
