@@ -14,10 +14,20 @@ dependencies:
   redux: ^3.0.0
   image_picker: ^0.6.0+9
   uuid: ^2.0.2
+  flare_flutter: 1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.7.2"
+
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "assets/ic_launcher.png"
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/
+    - animations/

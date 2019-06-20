@@ -8,6 +8,7 @@ import 'package:flutterbeer/state/reducer.dart';
 import 'package:flutterbeer/state/app_state.dart';
 import 'package:flutterbeer/vote.dart';
 import 'package:redux/redux.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,13 +25,15 @@ class MyApp extends StatelessWidget {
     return StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
-        initialRoute: '/',
+        initialRoute: SplashScreen.routeName,
         routes: {
-          '/': (context) => MainScreen(),
+          MainScreen.routName: (context) => MainScreen(),
+          SplashScreen.routeName: (context) => SplashScreen(),
           CreateTasting.routeName: (context) => CreateTasting(),
           EditBeer.routeName: (context) => EditBeer(),
           Vote.routeName: (context) => Vote(),
           BeerVote.routeName: (context) => BeerVote(),
+
         },
         title: 'Flutter beer',
         theme: ThemeData(
@@ -44,6 +47,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MainScreen extends StatelessWidget {
+  static const routName = '/';
   const MainScreen({
     Key key,
   }) : super(key: key);
@@ -69,5 +73,23 @@ class MainScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  static const routeName = '/splash';
+  @override
+  _SplashScreenState createState() => new _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return FlareActor('animations/tasting.flr',
+        alignment: Alignment.center,
+        fit: BoxFit.contain,
+        animation: 'beer',
+        callback: (s) => Navigator.pop(context),
+        );
   }
 }
