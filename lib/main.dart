@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutterbeer/edit_views/create_tasting.dart';
 import 'package:flutterbeer/edit_views/edit_beer.dart';
+import 'package:flutterbeer/edit_views/join_tasting.dart';
 import 'package:flutterbeer/model/app_model.dart';
 import 'package:flutterbeer/state/reducer.dart';
 import 'package:flutterbeer/state/app_state.dart';
 import 'package:flutterbeer/vote.dart';
 import 'package:redux/redux.dart';
-
 
 void main() => runApp(MyApp());
 
@@ -54,21 +54,7 @@ class MainScreen extends StatelessWidget {
         leading: Icon(Icons.local_bar),
         title: Text('flutter bear'),
       ),
-      body: Center(
-        child: StoreConnector<AppState, AppState>(
-          converter: (Store<AppState> store) => store.state,
-          builder: (context, state) => Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: state.tastings.map((t) {
-                return RaisedButton(
-                    child: Text(t.title),
-                    onPressed: () {
-                      Navigator.pushNamed(context, Vote.routeName,
-                          arguments: t.id);
-                    });
-              }).toList()),
-        ),
-      ),
+      body: JoinTasting(),
       floatingActionButton: FloatingActionButton(
         shape: StadiumBorder(),
         onPressed: () {
