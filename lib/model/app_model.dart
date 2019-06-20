@@ -18,3 +18,10 @@ class Beer {
   Beer({this.name}) :
   id = Uuid().v4();
 }
+
+class BeerVoting {
+  String beerId;
+  String beerMate;
+  int points;
+  BeerVoting({this.beerId, this.points});
+}

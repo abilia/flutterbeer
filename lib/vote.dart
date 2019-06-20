@@ -42,7 +42,7 @@ class BeerVoteCard extends StatelessWidget {
       child: RaisedButton(
         child: Text(beer.name),
         onPressed: () {
-          Navigator.pushNamed(context, BeerVote.routeName, arguments: beer.id);
+          Navigator.pushNamed(context, BeerVote.routeName, arguments: beer);
         }),
     );
   }
