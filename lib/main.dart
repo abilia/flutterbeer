@@ -58,7 +58,7 @@ class MainScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         shape: StadiumBorder(),
         onPressed: () {
-          Navigator.pushNamed(context, CreateTasting.routeName);
+          Navigator.pushNamed(context, CreateTasting.routeName, arguments: BeerTasting());
         },
         child: Icon(
           Icons.add,

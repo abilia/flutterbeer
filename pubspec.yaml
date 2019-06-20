@@ -4,7 +4,7 @@ description: App for beer tasting
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -13,6 +13,7 @@ dependencies:
   flutter_redux: ^0.5.3
   redux: ^3.0.0
   image_picker: ^0.6.0+9
+  uuid: ^2.0.2
 
 dev_dependencies:
   flutter_test:
