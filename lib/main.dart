@@ -54,11 +54,15 @@ class MainScreen extends StatelessWidget {
         leading: Icon(Icons.local_bar),
         title: Text('Beer tastings'),
       ),
-      body: JoinTasting(),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: JoinTasting(),
+      ),
       floatingActionButton: FloatingActionButton(
         shape: StadiumBorder(),
         onPressed: () {
-          Navigator.pushNamed(context, CreateTasting.routeName, arguments: BeerTasting());
+          Navigator.pushNamed(context, CreateTasting.routeName,
+              arguments: BeerTasting());
         },
         child: Icon(
           Icons.add,
