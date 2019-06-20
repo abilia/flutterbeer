@@ -4,7 +4,6 @@ import 'package:flutterbeer/edit_views/create_tasting.dart';
 import 'package:flutterbeer/edit_views/edit_beer.dart';
 import 'package:flutterbeer/edit_views/join_tasting.dart';
 import 'package:flutterbeer/edit_views/beer_vote.dart';
-import 'package:flutterbeer/model/app_model.dart';
 import 'package:flutterbeer/state/reducer.dart';
 import 'package:flutterbeer/state/app_state.dart';
 import 'package:flutterbeer/vote.dart';
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => MainScreen(),
-          CreateTasting.routeName: (context) => CreateTasting(BeerTasting()),
+          CreateTasting.routeName: (context) => CreateTasting(),
           EditBeer.routeName: (context) => EditBeer(),
           Vote.routeName: (context) => Vote(),
           BeerVote.routeName: (context) => BeerVote(),
@@ -63,8 +62,7 @@ class MainScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         shape: StadiumBorder(),
         onPressed: () {
-          Navigator.pushNamed(context, CreateTasting.routeName,
-              arguments: BeerTasting());
+          Navigator.pushNamed(context, CreateTasting.routeName);
         },
         child: Icon(
           Icons.add,

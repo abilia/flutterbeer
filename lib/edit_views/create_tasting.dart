@@ -10,18 +10,24 @@ import 'package:redux/redux.dart';
 
 class CreateTasting extends StatefulWidget {
   static const routeName = '/editTasting';
-  CreateTasting(this.tasting);
+  CreateTasting({BeerTasting tasting}) :
+  update = tasting != null,
+  tasting = tasting != null ? tasting : BeerTasting()
+  ;
   final BeerTasting tasting;
+  final bool update;
   @override
-  _CreateTastingState createState() => _CreateTastingState(tasting);
+  _CreateTastingState createState() => _CreateTastingState(tasting, update);
 }
 
 class _CreateTastingState extends State<CreateTasting>
     with SingleTickerProviderStateMixin {
-  _CreateTastingState(this.tasting);
+  _CreateTastingState(this.tasting, this.update);
 
   final BeerTasting tasting;
+  final bool update;
   TabController _tabController;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -46,43 +52,54 @@ class _CreateTastingState extends State<CreateTasting>
     return StoreConnector<AppState, Store<AppState>>(
         converter: (Store<AppState> store) => store,
         builder: (context, store) {
-          return Scaffold(
-            appBar: AppBar(
-              leading: IconButton(
-                icon: Icon(Icons.close),
-                onPressed: () => Navigator.pop(context),
+          return Form(
+            key: _formKey,
+              child: Scaffold(
+              appBar: AppBar(
+                leading: IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                title: Text('${update  ? 'Edit' : 'New'} beer tasting'),
+                actions: <Widget>[
+                  Builder( builder: (context) => IconButton(
+                      icon: Icon(Icons.check),
+                      onPressed: () {
+                        if(_formKey.currentState.validate()) {
+                          if (tasting.title == null) {
+                            Scaffold.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(SnackBar(content: Text('Must give tasting a name!'), duration: Duration(seconds: 3),));
+                            return;
+                          }
+                          store.dispatch(ActionPayload(Actions.AddTasting, data: tasting));
+                          Navigator.pop(context);
+                        }
+                      } 
+                    ),
+                  )
+                ],
+                bottom: TabBar(
+                  controller: _tabController,
+                  tabs: [
+                    Tab(
+                      text: 'Name',
+                    ),
+                    Tab(
+                      text: 'Beers',
+                    ),
+                  ],
+                ),
               ),
-              title: Text("New beer tasting"),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.check),
-                  onPressed: () {
-                    tasting.title = "fafafdafa";
-                    store.dispatch(ActionPayload(Actions.AddTasting, data: tasting));
-                    Navigator.pop(context);
-                  } 
-                )
-              ],
-              bottom: TabBar(
+              body: TabBarView(
                 controller: _tabController,
-                tabs: [
-                  Tab(
-                    text: 'Name',
-                  ),
-                  Tab(
-                    text: 'Beers',
-                  ),
+                children: [
+                  TastingInfo(tasting),
+                  BeerList(tasting.beers),
                 ],
               ),
+              floatingActionButton: _bottomButtons(),
             ),
-            body: TabBarView(
-              controller: _tabController,
-              children: [
-                TastingInfo(tasting),
-                BeerList(tasting.beers),
-              ],
-            ),
-            floatingActionButton: _bottomButtons(),
           );
         });
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterbeer/constants.dart';
 import 'package:flutterbeer/model/app_model.dart';
 import 'package:flutterbeer/widgets/image_picking.dart';
 
@@ -15,6 +16,7 @@ class _EditBeerState extends State<EditBeer> {
   @override
   Widget build(BuildContext context) {
     Beer beer = ModalRoute.of(context).settings.arguments;
+    _controller.text = beer.name;
 
     return Scaffold(
       appBar: AppBar(
@@ -33,22 +35,29 @@ class _EditBeerState extends State<EditBeer> {
       ),
       body: Form(
         key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text('Beer photo'),
-            ImagePicking(
-              image: beer.image,
-              onNewPhoto: (f) => beer.image = f,
-            ),
-            Text('Name of your beer'),
-            TextFormField(
-              controller: _controller,
-              validator: (value) {
-                if (value.isEmpty) return 'The beer needs a name!';
-              },
-            ),
-          ],
+        child: Padding(
+          padding: standardPadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text('Beer photo'),
+              Expanded(
+                child: Center(
+                  child: ImagePicking(
+                    image: beer.image,
+                    onNewPhoto: (f) => beer.image = f,
+                  ),
+                ),
+              ),
+              Text('Name of your beer'),
+              TextFormField(
+                controller: _controller,
+                validator: (value) {
+                  if (value.isEmpty) return 'The beer needs a name!';
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
