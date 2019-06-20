@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => MainScreen(),
           CreateTesting.routeName: (context) => CreateTesting(BeerTasting()),
           EditBeer.routeName: (context) => EditBeer(),
-          '/vote': (context) => Vote()
+          Vote.routeName: (context) => Vote()
         },
         title: 'Flutter beer',
         theme: ThemeData(
@@ -63,7 +63,8 @@ class MainScreen extends StatelessWidget {
                 return RaisedButton(
                     child: Text(t.title),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/vote', arguments: t.id);
+                      Navigator.pushNamed(context, Vote.routeName,
+                          arguments: t.id);
                     });
               }).toList()),
         ),

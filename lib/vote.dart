@@ -6,6 +6,7 @@ import 'package:redux/redux.dart';
 
 
 class Vote extends StatelessWidget {
+  static const routeName = '/vote';
   @override
   Widget build(BuildContext context) {
     final String tastingId = ModalRoute.of(context).settings.arguments;
