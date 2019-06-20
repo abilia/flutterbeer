@@ -4,6 +4,7 @@ import 'package:flutterbeer/model/app_model.dart';
 import 'package:flutterbeer/state/app_state.dart';
 import 'package:redux/redux.dart';
 
+
 class Vote extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

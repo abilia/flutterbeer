@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:flutterbeer/state/reducer.dart';
+import 'package:flutterbeer/edit_views/edit_beer.dart';
+import 'package:flutterbeer/model/app_model.dart';
 import 'package:redux/redux.dart';
-import 'package:flutterbeer/add_beer_view.dart';
-import 'package:flutterbeer/create_testing.dart';
-import 'package:flutterbeer/vote.dart';
 
+import 'state/reducer.dart';
+import 'join_testing.dart';
+import 'vote.dart';
+import 'edit_views/create_testing.dart';
 import 'state/app_state.dart';
 
 void main() => runApp(MyApp());
@@ -26,13 +28,17 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => MainScreen(),
-          '/create': (context) => CreateTesting(),
-          '/create/add': (context) => AddBeer(),
+          CreateTesting.routeName: (context) => CreateTesting(BeerTasting()),
+          EditBeer.routeName: (context) => EditBeer(),
+          '/join': (context) => JoinTesting(),
           '/vote': (context) => Vote()
         },
         title: 'Flutter beer',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.brown,
+          accentColor: Colors.orangeAccent,
+          buttonColor: Colors.orange,
+          scaffoldBackgroundColor: Colors.grey[200]
         ),
       ),
     );
@@ -55,28 +61,19 @@ class MainScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            StoreConnector<AppState, AppState>(
-              converter: (Store<AppState> store) => store.state,
-              builder: (context, state) {
-                return Column(
-                    children: state.tastings
-                        .map((t) => RaisedButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/vote',
-                                  arguments: t.id);
-                            },
-                            child: Text(t.title)))
-                        .toList());
+            RaisedButton(
+                child: Text('Create'),
+                onPressed: () {
+                  Navigator.pushNamed(context, CreateTesting.routeName);
+                }),
+            RaisedButton(
+              child: Text('Vote'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/vote');
               },
-            ),
+            )
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/create');
-        },
-        child: Icon(Icons.add_box),
       ),
     );
   }

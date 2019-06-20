@@ -1,18 +1,13 @@
+import 'dart:io';
+
 class BeerTasting {
-  String id;
+  File image;
   String title;
-  List<Beer> beers;
-  BeerTasting(String id, String title, List<Beer> beers) {
-    this.id = id;
-    this.title = title;
-    this.beers = beers;
-  }
+  List<Beer> beers = [];
+  BeerTasting({this.title});
 }
 
 class Beer {
   String name;
-  Beer(String name) {
-    this.name = name;
-  }
+  File image;
 }
-
