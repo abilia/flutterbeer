@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutterbeer/edit_views/create_tasting.dart';
 import 'package:flutterbeer/edit_views/edit_beer.dart';
 import 'package:flutterbeer/model/app_model.dart';
+import 'package:flutterbeer/state/reducer.dart';
+import 'package:flutterbeer/state/app_state.dart';
+import 'package:flutterbeer/vote.dart';
 import 'package:redux/redux.dart';
 
-import 'state/reducer.dart';
-import 'vote.dart';
-import 'edit_views/create_testing.dart';
-import 'state/app_state.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => MainScreen(),
-          CreateTesting.routeName: (context) => CreateTesting(BeerTasting()),
+          CreateTasting.routeName: (context) => CreateTasting(BeerTasting()),
           EditBeer.routeName: (context) => EditBeer(),
           Vote.routeName: (context) => Vote()
         },
@@ -72,7 +72,7 @@ class MainScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         shape: StadiumBorder(),
         onPressed: () {
-          Navigator.pushNamed(context, CreateTesting.routeName);
+          Navigator.pushNamed(context, CreateTasting.routeName);
         },
         child: Icon(
           Icons.add,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterbeer/image_picking.dart';
 import 'package:flutterbeer/model/app_model.dart';
+import 'package:flutterbeer/widgets/image_picking.dart';
 
 class EditBeer extends StatefulWidget {
   static const routeName = '/editbeer';
