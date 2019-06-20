@@ -12,10 +12,12 @@ class TastingInfo extends StatefulWidget {
 
 class _TastingInfoState extends State<TastingInfo> {
   _TastingInfoState(this.tasting);
-  BeerTasting tasting;
+  final BeerTasting tasting;
+  final _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    _controller.text = tasting.title;
     final textStyle = Theme.of(context).textTheme.caption;
     return Padding(
       padding: standardPadding,
@@ -40,6 +42,7 @@ class _TastingInfoState extends State<TastingInfo> {
             style: textStyle,
           ),
           TextFormField(
+            controller: _controller,
             validator: (value) {
               if (value.isEmpty) return 'Need to add a name';
               else tasting.title = value;

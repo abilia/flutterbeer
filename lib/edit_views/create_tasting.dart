@@ -12,8 +12,7 @@ class CreateTasting extends StatefulWidget {
   static const routeName = '/editTasting';
   CreateTasting({BeerTasting tasting}) :
   update = tasting != null,
-  tasting = tasting != null ? tasting : BeerTasting()
-  ;
+  tasting = tasting != null ? tasting : BeerTasting();
   final BeerTasting tasting;
   final bool update;
   @override
@@ -72,8 +71,8 @@ class _CreateTastingState extends State<CreateTasting>
                             ..showSnackBar(SnackBar(content: Text('Must give tasting a name!'), duration: Duration(seconds: 3),));
                             return;
                           }
-                          store.dispatch(ActionPayload(Actions.AddTasting, data: tasting));
-                          Navigator.pop(context);
+                            store.dispatch(ActionPayload(update ? Actions.EditTasting : Actions.AddTasting, data: tasting));
+                            Navigator.pop(context);
                         }
                       } 
                     ),

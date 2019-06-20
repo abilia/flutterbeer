@@ -29,11 +29,15 @@ class MyApp extends StatelessWidget {
         routes: {
           MainScreen.routName: (context) => MainScreen(),
           SplashScreen.routeName: (context) => SplashScreen(),
-          CreateTasting.routeName: (context) => CreateTasting(),
           EditBeer.routeName: (context) => EditBeer(),
           Vote.routeName: (context) => Vote(),
           BeerVote.routeName: (context) => BeerVote(),
 
+        },
+        onGenerateRoute: (settings) {
+          if (settings.name == CreateTasting.routeName) {
+            return MaterialPageRoute(builder: (context) => CreateTasting(tasting: settings.arguments,));
+          }
         },
         title: 'Flutter beer',
         theme: ThemeData(
