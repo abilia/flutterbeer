@@ -14,7 +14,10 @@ class JoinTasting extends StatelessWidget {
         converter: (Store<AppState> store) => store.state,
         builder: (context, state) => Column(
                 children: state.tastings.map((t) {
-              return JoinCard(beerTasting: t);
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: JoinCard(beerTasting: t),
+              );
             }).toList()),
       ),
     );
@@ -31,34 +34,42 @@ class JoinCard extends StatelessWidget {
     final height = 60.0;
     return SizedBox(
       width: double.infinity,
-      child: Column(
-        children: <Widget>[
-          InkWell(
-              child: AspectRatio(
-            aspectRatio: 2,
-            child: beerTasting.image == null
-                ? Container(
-                    child: Icon(
-                      Icons.image,
-                      color: Colors.black26,
-                      size: height,
-                    ),
-                    color: Colors.black12,
-                  )
-                : Image.file(beerTasting.image),
-          )),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              RaisedButton(
-                  child: Text("JOIN TASTING"),
-                  onPressed: () {
-                    Navigator.pushNamed(context, Vote.routeName,
-                        arguments: beerTasting.id);
-                  }),
-            ],
-          ),
-        ],
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          children: <Widget>[
+            InkWell(
+                child: AspectRatio(
+              aspectRatio: 2,
+              child: beerTasting.image == null
+                  ? Container(
+                      child: Icon(
+                        Icons.image,
+                        color: Colors.black26,
+                        size: height,
+                      ),
+                      color: Colors.black12,
+                    )
+                  : Image.file(beerTasting.image),
+            )),
+            Row(
+              children: <Widget>[
+                Text(beerTasting.title)
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                RaisedButton(
+                    child: Text("JOIN TASTING"),
+                    onPressed: () {
+                      Navigator.pushNamed(context, Vote.routeName,
+                          arguments: beerTasting.id);
+                    }),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
