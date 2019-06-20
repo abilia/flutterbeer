@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutterbeer/edit_views/create_tasting.dart';
 import 'package:flutterbeer/edit_views/edit_beer.dart';
 import 'package:flutterbeer/edit_views/join_tasting.dart';
+import 'package:flutterbeer/edit_views/beer_vote.dart';
 import 'package:flutterbeer/model/app_model.dart';
 import 'package:flutterbeer/state/reducer.dart';
 import 'package:flutterbeer/state/app_state.dart';
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
           '/': (context) => MainScreen(),
           CreateTasting.routeName: (context) => CreateTasting(BeerTasting()),
           EditBeer.routeName: (context) => EditBeer(),
-          Vote.routeName: (context) => Vote()
+          Vote.routeName: (context) => Vote(),
+          BeerVote.routeName: (context) => BeerVote(),
         },
         title: 'Flutter beer',
         theme: ThemeData(

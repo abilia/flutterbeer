@@ -12,7 +12,9 @@ class BeerTasting {
 }
 
 class Beer {
+  String id;
   String name;
   File image;
-  Beer({this.name});
+  Beer({this.name}) :
+  id = Uuid().v4();
 }
