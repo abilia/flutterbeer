@@ -5,6 +5,7 @@ import 'package:flutterbeer/edit_views/edit_beer.dart';
 import 'package:flutterbeer/edit_views/edit_tasting.dart';
 import 'package:flutterbeer/model/app_model.dart';
 import 'package:flutterbeer/state/app_state.dart';
+import 'package:flutterbeer/state/reducer.dart';
 import 'package:redux/redux.dart';
 
 class CreateTasting extends StatefulWidget {
@@ -42,9 +43,9 @@ class _CreateTastingState extends State<CreateTasting>
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, AppState>(
-        converter: (Store<AppState> store) => store.state,
-        builder: (context, state) {
+    return StoreConnector<AppState, Store<AppState>>(
+        converter: (Store<AppState> store) => store,
+        builder: (context, store) {
           return Scaffold(
             appBar: AppBar(
               leading: IconButton(
@@ -55,7 +56,11 @@ class _CreateTastingState extends State<CreateTasting>
               actions: <Widget>[
                 IconButton(
                   icon: Icon(Icons.check),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () {
+                    tasting.title = "fafafdafa";
+                    store.dispatch(ActionPayload(Actions.AddTasting, data: tasting));
+                    Navigator.pop(context);
+                  } 
                 )
               ],
               bottom: TabBar(

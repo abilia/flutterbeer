@@ -1,11 +1,14 @@
 import 'dart:io';
+import 'package:uuid/uuid.dart';
 
 class BeerTasting {
   File image;
   String title;
   String id;
   List<Beer> beers = [];
-  BeerTasting({this.id, this.title, this.beers});
+  BeerTasting({ this.title, List<Beer> beers}) : 
+  beers = beers == null ? [] : beers, 
+  id = Uuid().v4();
 }
 
 class Beer {
