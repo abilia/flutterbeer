@@ -11,6 +11,10 @@ class BeerVote extends StatefulWidget {
 }
 
 class _BeerVoteState extends State<BeerVote> {
+
+  double _value = 0.0;
+  void _setValue(double value) => setState(() => _value = value);
+
   @override
   Widget build(BuildContext context) {
     Beer beer = ModalRoute.of(context).settings.arguments;
@@ -19,11 +23,36 @@ class _BeerVoteState extends State<BeerVote> {
       converter: (Store<AppState> store) => store,
       builder: (context, store) {
         return Scaffold(
-          appBar: AppBar( 
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.close),
+              onPressed: () => Navigator.pop(context),
+            ),
             title: Text(beer.name),
+            actions: <Widget>[
+              Builder(builder: (context) => IconButton(
+                icon: Icon(Icons.check),
+                onPressed: () {
+                  print('check pressed');
+                  Navigator.pop(context);
+                }
+              )),
+            ],
           ),
           body: Center(
-            child: Text("Den var god!"),
+            child: Column(
+              children: <Widget>[
+                PreferredSize(
+                  preferredSize: Size(120, 120),
+                  child:
+                    beer.image == null ? Image.asset('assets/img_beer_placeholder.png')
+                      : Image.file(beer.image),
+                ),
+                Text('Points: $_value'),
+                Slider(value: _value, onChanged: _setValue),
+                Text('Den är alltså god'),
+              ],
+            ),
           ),
         );
       },
