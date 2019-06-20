@@ -52,7 +52,7 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: Icon(Icons.local_bar),
-        title: Text('flutter bear'),
+        title: Text('Beer tastings'),
       ),
       body: JoinTasting(),
       floatingActionButton: FloatingActionButton(
