@@ -86,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
+      decoration: BoxDecoration(color: Colors.white),
       child: FlareActor('animations/tasting.flr',
           alignment: Alignment.center,
           fit: BoxFit.contain,
