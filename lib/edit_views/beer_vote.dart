@@ -5,13 +5,12 @@ import 'package:flutterbeer/state/app_state.dart';
 import 'package:redux/redux.dart';
 
 class BeerVote extends StatefulWidget {
-    static const routeName = '/beervote';
-    @override
-    _BeerVoteState createState() => _BeerVoteState();
+  static const routeName = '/beervote';
+  @override
+  _BeerVoteState createState() => _BeerVoteState();
 }
 
 class _BeerVoteState extends State<BeerVote> {
-
   double _value = 0.0;
   void _setValue(double value) => setState(() => _value = value);
 
@@ -19,7 +18,7 @@ class _BeerVoteState extends State<BeerVote> {
   Widget build(BuildContext context) {
     Beer beer = ModalRoute.of(context).settings.arguments;
 
-    return StoreConnector<AppState, Store<AppState>>( 
+    return StoreConnector<AppState, Store<AppState>>(
       converter: (Store<AppState> store) => store,
       builder: (context, store) {
         return Scaffold(
@@ -30,27 +29,41 @@ class _BeerVoteState extends State<BeerVote> {
             ),
             title: Text(beer.name),
             actions: <Widget>[
-              Builder(builder: (context) => IconButton(
-                icon: Icon(Icons.check),
-                onPressed: () {
-                  print('check pressed');
-                  Navigator.pop(context);
-                }
-              )),
+              Builder(
+                  builder: (context) => IconButton(
+                      icon: Icon(Icons.check),
+                      onPressed: () {
+                        print('check pressed');
+                        Navigator.pop(context);
+                      })),
             ],
           ),
           body: Center(
             child: Column(
               children: <Widget>[
-                PreferredSize(
-                  preferredSize: Size(120, 120),
-                  child:
-                    beer.image == null ? Image.asset('assets/img_beer_placeholder.png')
-                      : Image.file(beer.image),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: PreferredSize(
+                    preferredSize: Size(120, 120),
+                    child: beer.image == null
+                        ? Image.asset('assets/img_beer_placeholder.png')
+                        : Image.file(beer.image),
+                  ),
                 ),
-                Text('Points: $_value'),
-                Slider(value: _value, onChanged: _setValue),
-                Text('Den är alltså god'),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: Text('${_value.toStringAsFixed(1)}p', style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Slider(
+                    value: _value,
+                    onChanged: _setValue,
+                    max: 5.0,
+                    min: 0.0,
+                    divisions: 50,
+                  ),
+                ),
               ],
             ),
           ),

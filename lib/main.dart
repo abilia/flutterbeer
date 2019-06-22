@@ -32,15 +32,26 @@ class MyApp extends StatelessWidget {
           EditBeer.routeName: (context) => EditBeer(),
           Vote.routeName: (context) => Vote(),
           BeerVote.routeName: (context) => BeerVote(),
-
         },
         onGenerateRoute: (settings) {
           if (settings.name == CreateTasting.routeName) {
-            return MaterialPageRoute(builder: (context) => CreateTasting(tasting: settings.arguments,));
+            return MaterialPageRoute(
+                builder: (context) => CreateTasting(
+                      tasting: settings.arguments,
+                    ));
           }
         },
         title: 'Flutter beer',
         theme: ThemeData(
+            sliderTheme: SliderThemeData.fromPrimaryColors(
+                    primaryColor: Colors.orange,
+                    primaryColorDark: Colors.orange,
+                    primaryColorLight: Colors.orange,
+                    valueIndicatorTextStyle: TextStyle())
+                .copyWith(
+                    trackHeight: 10,
+                    thumbShape: RoundSliderThumbShape(
+                        disabledThumbRadius: 20, enabledThumbRadius: 20)),
             primarySwatch: Colors.brown,
             accentColor: Colors.orangeAccent,
             buttonColor: Colors.orange,
@@ -91,12 +102,13 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
-      child: FlareActor('animations/tasting.flr',
-          alignment: Alignment.center,
-          fit: BoxFit.contain,
-          animation: 'beer',
-          callback: (s) => Navigator.pop(context),
-          ),
+      child: FlareActor(
+        'animations/tasting.flr',
+        alignment: Alignment.center,
+        fit: BoxFit.contain,
+        animation: 'beer',
+        callback: (s) => Navigator.pop(context),
+      ),
     );
   }
 }
