@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterbeer/edit_views/create_tasting.dart';
 import 'package:flutterbeer/model/app_model.dart';
-import 'package:flutterbeer/vote.dart';
+import 'package:flutterbeer/pages/vote_page.dart';
 
 class JoinCard extends StatelessWidget {
   final BeerTasting beerTasting;
@@ -34,7 +34,7 @@ class JoinCard extends StatelessWidget {
                     child: RaisedButton(
                         child: Text("JOIN TASTING"),
                         onPressed: () {
-                          Navigator.pushNamed(context, Vote.routeName,
+                          Navigator.pushNamed(context, VotePage.routeName,
                               arguments: beerTasting.id);
                         }),
                   ),

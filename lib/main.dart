@@ -6,9 +6,10 @@ import 'package:flutterbeer/edit_views/join_tasting.dart';
 import 'package:flutterbeer/edit_views/beer_vote.dart';
 import 'package:flutterbeer/state/reducer.dart';
 import 'package:flutterbeer/state/app_state.dart';
-import 'package:flutterbeer/vote.dart';
 import 'package:redux/redux.dart';
 import 'package:flare_flutter/flare_actor.dart';
+
+import 'pages/vote_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
           MainScreen.routName: (context) => MainScreen(),
           SplashScreen.routeName: (context) => SplashScreen(),
           EditBeer.routeName: (context) => EditBeer(),
-          Vote.routeName: (context) => Vote(),
+          VotePage.routeName: (context) => VotePage(),
           BeerVote.routeName: (context) => BeerVote(),
         },
         onGenerateRoute: (settings) {
