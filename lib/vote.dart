@@ -11,22 +11,36 @@ class Vote extends StatelessWidget {
   Widget build(BuildContext context) {
     final String tastingId = ModalRoute.of(context).settings.arguments;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Make your votes"),
+    return DefaultTabController(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Make your votes"),
+          bottom: TabBar(
+            tabs: <Widget>[Tab(text: "Beers"), Tab(text: "Photos"), Tab(text: "Beermates")],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            Column(
+              children: <Widget>[
+                StoreConnector<AppState, BeerTasting>(
+                    converter: (Store<AppState> store) => store.state.tastings
+                        .singleWhere((tasting) => tasting.id == tastingId),
+                    builder: (context, tasting) {
+                      final c = List<Widget>.of([Text(tasting.title)]);
+                      c.addAll((tasting.beers
+                          .map((b) => BeerVoteCard(beer: b))
+                          .toList()));
+                      return Column(children: c);
+                    }),
+              ],
+            ),
+            Text("Photos of beers"),
+            Text("The beermates"),
+          ],
+        ),
       ),
-      body: Column(
-        children: <Widget>[
-          StoreConnector<AppState, BeerTasting>(
-              converter: (Store<AppState> store) => store.state.tastings
-                  .singleWhere((tasting) => tasting.id == tastingId),
-              builder: (context, tasting) {
-                final c = List<Widget>.of([Text(tasting.title)]);
-                c.addAll((tasting.beers.map((b) => BeerVoteCard(beer: b)).toList()));
-                return Column(children: c);
-              }),
-        ],
-      ),
+      length: 3,
     );
   }
 }
@@ -40,10 +54,10 @@ class BeerVoteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: RaisedButton(
-        child: Text(beer.name),
-        onPressed: () {
-          Navigator.pushNamed(context, BeerVote.routeName, arguments: beer);
-        }),
+          child: Text(beer.name),
+          onPressed: () {
+            Navigator.pushNamed(context, BeerVote.routeName, arguments: beer);
+          }),
     );
   }
 }
