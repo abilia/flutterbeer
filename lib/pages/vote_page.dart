@@ -31,7 +31,18 @@ class VotePage extends StatelessWidget {
                 children: [
                   Column(
                       children: tasting.beers
-                          .map((b) => BeerVoteCard(beer: b))
+                          .asMap()
+                          .map((index, beer) {
+                            return MapEntry(
+                                index,
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(5, 3, 5, 0),
+                                  child: BeerVoteCard(
+                                      beer: beer, position: index + 1),
+                                ));
+                          })
+                          .values
                           .toList()),
                   Text("Photos of beers"),
                   Text("The beermates"),
