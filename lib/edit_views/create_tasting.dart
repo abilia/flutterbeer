@@ -10,9 +10,9 @@ import 'package:redux/redux.dart';
 
 class CreateTasting extends StatefulWidget {
   static const routeName = '/editTasting';
-  CreateTasting({BeerTasting tasting}) :
-  update = tasting != null,
-  tasting = tasting != null ? tasting : BeerTasting();
+  CreateTasting({BeerTasting tasting})
+      : update = tasting != null,
+        tasting = tasting != null ? tasting : BeerTasting();
   final BeerTasting tasting;
   final bool update;
   @override
@@ -53,29 +53,36 @@ class _CreateTastingState extends State<CreateTasting>
         builder: (context, store) {
           return Form(
             key: _formKey,
-              child: Scaffold(
+            child: Scaffold(
               appBar: AppBar(
                 leading: IconButton(
                   icon: Icon(Icons.close),
                   onPressed: () => Navigator.pop(context),
                 ),
-                title: Text('${update  ? 'Edit' : 'New'} beer tasting'),
+                title: Text('${update ? 'Edit' : 'New'} beer tasting'),
                 actions: <Widget>[
-                  Builder( builder: (context) => IconButton(
-                      icon: Icon(Icons.check),
-                      onPressed: () {
-                        if(_formKey.currentState.validate()) {
-                          if (tasting.title == null) {
-                            Scaffold.of(context)
-                            ..hideCurrentSnackBar()
-                            ..showSnackBar(SnackBar(content: Text('Must give tasting a name!'), duration: Duration(seconds: 3),));
-                            return;
-                          }
-                            store.dispatch(ActionPayload(update ? Actions.EditTasting : Actions.AddTasting, data: tasting));
+                  Builder(
+                    builder: (context) => IconButton(
+                        icon: Icon(Icons.check),
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            if (tasting.title == null) {
+                              Scaffold.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(SnackBar(
+                                  content: Text('Must give tasting a name!'),
+                                  duration: Duration(seconds: 3),
+                                ));
+                              return;
+                            }
+                            store.dispatch(ActionPayload(
+                                update
+                                    ? Actions.EditTasting
+                                    : Actions.AddTasting,
+                                data: tasting));
                             Navigator.pop(context);
-                        }
-                      } 
-                    ),
+                          }
+                        }),
                   )
                 ],
                 bottom: TabBar(
