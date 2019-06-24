@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
 import 'package:flutterbeer/model/app_model.dart';
 import 'package:flutterbeer/state/app_state.dart';
-import 'package:flutterbeer/edit_views/beer_vote.dart';
-import 'package:redux/redux.dart';
+import 'package:flutterbeer/widgets/vote_card.dart';
 
 class VotePage extends StatelessWidget {
   static const routeName = '/vote';
@@ -30,8 +30,9 @@ class VotePage extends StatelessWidget {
               body: TabBarView(
                 children: [
                   Column(
-                      children:
-                          tasting.beers.map((t) => Text(t.name)).toList()),
+                      children: tasting.beers
+                          .map((b) => BeerVoteCard(beer: b))
+                          .toList()),
                   Text("Photos of beers"),
                   Text("The beermates"),
                 ],
@@ -40,22 +41,5 @@ class VotePage extends StatelessWidget {
             length: 3,
           );
         });
-  }
-}
-
-class BeerVoteCard extends StatelessWidget {
-  final Beer beer;
-
-  BeerVoteCard({this.beer});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      child: RaisedButton(
-          child: Text(beer.name),
-          onPressed: () {
-            Navigator.pushNamed(context, BeerVote.routeName, arguments: beer);
-          }),
-    );
   }
 }
