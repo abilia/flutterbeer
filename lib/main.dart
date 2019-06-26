@@ -3,12 +3,12 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutterbeer/edit_views/create_tasting.dart';
 import 'package:flutterbeer/edit_views/edit_beer.dart';
 import 'package:flutterbeer/edit_views/join_tasting.dart';
-import 'package:flutterbeer/edit_views/beer_vote.dart';
 import 'package:flutterbeer/state/reducer.dart';
 import 'package:flutterbeer/state/app_state.dart';
 import 'package:redux/redux.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
+import 'pages/beer_vote_page.dart';
 import 'pages/vote_page.dart';
 
 void main() => runApp(MyApp());
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           SplashScreen.routeName: (context) => SplashScreen(),
           EditBeer.routeName: (context) => EditBeer(),
           VotePage.routeName: (context) => VotePage(),
-          BeerVote.routeName: (context) => BeerVote(),
+          BeerVotePage.routeName: (context) => BeerVotePage(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == CreateTasting.routeName) {

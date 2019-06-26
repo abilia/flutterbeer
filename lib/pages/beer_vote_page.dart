@@ -2,21 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutterbeer/model/app_model.dart';
 import 'package:flutterbeer/state/app_state.dart';
+import 'package:flutterbeer/state/reducer.dart';
+import 'package:flutterbeer/view_model/view_model.dart';
 import 'package:redux/redux.dart';
 
-class BeerVote extends StatefulWidget {
+class BeerVotePage extends StatefulWidget {
   static const routeName = '/beervote';
   @override
-  _BeerVoteState createState() => _BeerVoteState();
+  _BeerVotePageState createState() => _BeerVotePageState();
 }
 
-class _BeerVoteState extends State<BeerVote> {
-  double _value = 0.0;
+class _BeerVotePageState extends State<BeerVotePage> {
+  double _value;
   void _setValue(double value) => setState(() => _value = value);
 
   @override
   Widget build(BuildContext context) {
-    Beer beer = ModalRoute.of(context).settings.arguments;
+    BeerInfo beerInfo = ModalRoute.of(context).settings.arguments;
+    if (_value == null) {
+      _value = beerInfo.beerVote == null ? 0.0 : beerInfo.beerVote;
+    }
 
     return StoreConnector<AppState, Store<AppState>>(
       converter: (Store<AppState> store) => store,
@@ -27,13 +32,16 @@ class _BeerVoteState extends State<BeerVote> {
               icon: Icon(Icons.close),
               onPressed: () => Navigator.pop(context),
             ),
-            title: Text(beer.name),
+            title: Text(beerInfo.beer.name),
             actions: <Widget>[
               Builder(
                   builder: (context) => IconButton(
                       icon: Icon(Icons.check),
                       onPressed: () {
-                        print('check pressed');
+                        store.dispatch(ActionPayload(
+                            action: Actions.VotePlaced,
+                            data: BeerVote(
+                                beerId: beerInfo.beer.id, points: _value)));
                         Navigator.pop(context);
                       })),
             ],
@@ -45,14 +53,16 @@ class _BeerVoteState extends State<BeerVote> {
                   padding: const EdgeInsets.all(15.0),
                   child: PreferredSize(
                     preferredSize: Size(120, 120),
-                    child: beer.image == null
+                    child: beerInfo.beer.image == null
                         ? Image.asset('assets/img_beer_placeholder.png')
-                        : Image.file(beer.image),
+                        : Image.file(beerInfo.beer.image),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30),
-                  child: Text('${_value.toStringAsFixed(1)}p', style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold)),
+                  child: Text('${_value.toStringAsFixed(1)}p',
+                      style:
+                          TextStyle(fontSize: 60, fontWeight: FontWeight.bold)),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),

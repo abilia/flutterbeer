@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 
 class BeerTasting {
@@ -19,9 +20,9 @@ class Beer {
   id = Uuid().v4();
 }
 
-class BeerVoting {
+class BeerVote {
   String beerId;
   String beerMate;
-  int points;
-  BeerVoting({this.beerId, this.points});
+  double points;
+  BeerVote({@required this.beerId, @required this.points});
 }

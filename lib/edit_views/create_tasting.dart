@@ -76,7 +76,7 @@ class _CreateTastingState extends State<CreateTasting>
                               return;
                             }
                             store.dispatch(ActionPayload(
-                                update
+                                action: update
                                     ? Actions.EditTasting
                                     : Actions.AddTasting,
                                 data: tasting));

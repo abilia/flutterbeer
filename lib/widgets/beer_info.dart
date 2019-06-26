@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutterbeer/model/app_model.dart';
 
-class BeerInfo extends StatelessWidget {
+class BeerInfoWidget extends StatelessWidget {
   final Beer beer;
   final int position;
 
-  BeerInfo({this.beer, this.position});
+  BeerInfoWidget({this.beer, this.position});
 
   @override
   Widget build(BuildContext context) {

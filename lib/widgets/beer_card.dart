@@ -22,7 +22,7 @@ class BeerCard extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: BeerInfo(beer: beer, position: placement),
+              child: BeerInfoWidget(beer: beer, position: placement),
             )
           ],
         ),
