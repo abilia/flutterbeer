@@ -46,13 +46,11 @@ class _BeerVotePageState extends State<BeerVotePage> {
                       })),
             ],
           ),
-          body: Center(
-            child: Column(
+          body: Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: PreferredSize(
-                    preferredSize: Size(120, 120),
+                  padding: const EdgeInsets.all(16.0),
+                  child: AspectRatio( aspectRatio: 1,
                     child: beerInfo.beer.image == null
                         ? Image.asset('assets/img_beer_placeholder.png')
                         : Image.file(beerInfo.beer.image),
@@ -76,7 +74,6 @@ class _BeerVotePageState extends State<BeerVotePage> {
                 ),
               ],
             ),
-          ),
         );
       },
     );

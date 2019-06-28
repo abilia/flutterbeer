@@ -76,7 +76,7 @@ class MainScreen extends StatelessWidget {
         title: Text('Beer tastings'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: JoinTasting(),
       ),
       floatingActionButton: FloatingActionButton(
