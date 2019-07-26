@@ -39,7 +39,7 @@ class _BeerVotePageState extends State<BeerVotePage> {
                       icon: Icon(Icons.check),
                       onPressed: () {
                         store.dispatch(ActionPayload(
-                            action: Actions.VotePlaced,
+                            action: BeerActions.VotePlaced,
                             data: BeerVote(
                                 beerId: beerInfo.beer.id, points: _value)));
                         Navigator.pop(context);

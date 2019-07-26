@@ -77,8 +77,8 @@ class _CreateTastingState extends State<CreateTasting>
                             }
                             store.dispatch(ActionPayload(
                                 action: update
-                                    ? Actions.EditTasting
-                                    : Actions.AddTasting,
+                                    ? BeerActions.EditTasting
+                                    : BeerActions.AddTasting,
                                 data: tasting));
                             Navigator.pop(context);
                           }

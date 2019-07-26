@@ -3,10 +3,10 @@ import 'package:meta/meta.dart';
 
 import 'app_state.dart';
 
-enum Actions { AddTasting, EditTasting, VotePlaced }
+enum BeerActions { AddTasting, EditTasting, VotePlaced }
 
 class ActionPayload {
-  Actions action;
+  BeerActions action;
   dynamic data;
   ActionPayload({@required this.action, this.data});
 }
@@ -19,9 +19,9 @@ AppState appReducer(AppState state, dynamic action) {
 
 List<BeerTasting> tastingsReducer(AppState state, action) {
   switch (action.action) {
-    case Actions.AddTasting:
+    case BeerActions.AddTasting:
       return [action.data as BeerTasting, ...state.tastings].toList();
-    case Actions.EditTasting:
+    case BeerActions.EditTasting:
       final BeerTasting toBeEdited = action.data;
       final newTastings = state.tastings.toList();
       return newTastings
@@ -34,7 +34,7 @@ List<BeerTasting> tastingsReducer(AppState state, action) {
 
 List<BeerVote> votesReducer(AppState state, action) {
   switch (action.action) {
-    case Actions.VotePlaced:
+    case BeerActions.VotePlaced:
       final vote = action.data as BeerVote;
       return [...state.votes.where((v) => v.beerId != vote.beerId), vote];
   }
