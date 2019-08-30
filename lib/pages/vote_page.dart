@@ -37,7 +37,18 @@ class VotePage extends StatelessWidget {
                       child: BeerVoteCard(beerInfo: beerInfo),
                     );
                   }).toList()),
-                  Text("Photos of beers"),
+                  ListView(
+                      children: model.beerInfo.map((beerInfo) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: beerInfo.beer.image == null
+                            ? Image.asset('assets/img_beer_placeholder.png')
+                            : Image.file(beerInfo.beer.image),
+                      ),
+                    );
+                  }).toList()),
                   Text("The beermates"),
                 ],
               ),
