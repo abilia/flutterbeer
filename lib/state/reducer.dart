@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 
 import 'app_state.dart';
 
-enum BeerActions { AddTasting, EditTasting, VotePlaced }
+enum BeerActions { TastingsLoaded, AddTasting, EditTasting, VotePlaced }
 
 class ActionPayload {
   BeerActions action;
@@ -19,6 +19,8 @@ AppState appReducer(AppState state, dynamic action) {
 
 List<BeerTasting> tastingsReducer(AppState state, action) {
   switch (action.action) {
+    case BeerActions.TastingsLoaded:
+      return action.data as List<BeerTasting>;
     case BeerActions.AddTasting:
       return [action.data as BeerTasting, ...state.tastings].toList();
     case BeerActions.EditTasting:

@@ -10,6 +10,12 @@ class BeerTasting {
   BeerTasting({ this.title, List<Beer> beers}) : 
   beers = beers == null ? [] : beers, 
   id = Uuid().v4();
+
+  factory BeerTasting.fromJson(Map<String, dynamic> json) {
+    return BeerTasting(
+      title: json['name'],
+      beers: []);
+  }
 }
 
 class Beer {

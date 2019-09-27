@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:redux/redux.dart';
+import 'package:redux_thunk/redux_thunk.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flare_flutter/flare_actor.dart';
+
 import 'package:flutterbeer/edit_views/create_tasting.dart';
 import 'package:flutterbeer/edit_views/edit_beer.dart';
 import 'package:flutterbeer/edit_views/join_tasting.dart';
+
+import 'package:flutterbeer/state/actions.dart';
 import 'package:flutterbeer/state/reducer.dart';
 import 'package:flutterbeer/state/app_state.dart';
-import 'package:redux/redux.dart';
-import 'package:flare_flutter/flare_actor.dart';
 
 import 'pages/beer_vote_page.dart';
 import 'pages/vote_page.dart';
@@ -19,6 +23,7 @@ class MyApp extends StatelessWidget {
   final Store<AppState> store = Store<AppState>(
     appReducer,
     initialState: AppState.initial(),
+    middleware: [thunkMiddleware]
   );
 
   @override
@@ -28,7 +33,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         initialRoute: SplashScreen.routeName,
         routes: {
-          MainScreen.routName: (context) => MainScreen(),
+          MainScreen.routeName: (context) => MainScreen(),
           SplashScreen.routeName: (context) => SplashScreen(),
           EditBeer.routeName: (context) => EditBeer(),
           VotePage.routeName: (context) => VotePage(),
@@ -63,13 +68,14 @@ class MyApp extends StatelessWidget {
 }
 
 class MainScreen extends StatelessWidget {
-  static const routName = '/';
+  static const routeName = '/';
   const MainScreen({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    StoreProvider.of<AppState>(context).dispatch(getTastingsThunk);
     return Scaffold(
       appBar: AppBar(
         leading: Icon(Icons.local_bar),
