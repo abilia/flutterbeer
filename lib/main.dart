@@ -73,9 +73,12 @@ class MainScreen extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  Future<void> _getTastings(context) async {
+    StoreProvider.of<AppState>(context).dispatch(getTastingsThunk);
+  }
+
   @override
   Widget build(BuildContext context) {
-    StoreProvider.of<AppState>(context).dispatch(getTastingsThunk);
     return Scaffold(
       appBar: AppBar(
         leading: Icon(Icons.local_bar),
@@ -83,7 +86,12 @@ class MainScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: JoinTasting(),
+        child: RefreshIndicator(
+          child: JoinTasting(),
+          onRefresh: () {
+            return _getTastings(context);
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         shape: StadiumBorder(),
@@ -105,8 +113,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
   @override
   Widget build(BuildContext context) {
+    StoreProvider.of<AppState>(context).dispatch(getTastingsThunk);
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       child: FlareActor(
