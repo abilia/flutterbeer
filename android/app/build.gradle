@@ -50,8 +50,8 @@ android {
         release {
             storeFile rootProject.file("app/abilia-gbg-flutterbeer.jks")
             storePassword System.getenv("APPCENTER_KEYSTORE_PASSWORD")
-            storePassword System.getenv("APPCENTER_KEY_ALIAS")
-            storePassword System.getenv("APPCENTER_KEY_PASSWORD")
+            keyAlias System.getenv("APPCENTER_KEY_ALIAS")
+            keyPassword System.getenv("APPCENTER_KEY_PASSWORD")
         }
     }
 
