@@ -6,14 +6,16 @@ class BeerTasting {
   File image;
   String title;
   String id;
+  int tastingId;
   List<Beer> beers = [];
-  BeerTasting({ this.title, List<Beer> beers}) : 
+  BeerTasting({ this.title, this.tastingId, List<Beer> beers}) : 
   beers = beers == null ? [] : beers, 
   id = Uuid().v4();
 
   factory BeerTasting.fromJson(Map<String, dynamic> json) {
     return BeerTasting(
       title: json['name'],
+      tastingId: json['id'],
       beers: []);
   }
 }
@@ -24,6 +26,12 @@ class Beer {
   File image;
   Beer({this.name}) :
   id = Uuid().v4();
+
+  factory Beer.fromJson(Map<String, dynamic> json) {
+    return Beer(
+      name: json['name']
+    );
+  }
 }
 
 class BeerVote {
