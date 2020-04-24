@@ -18,6 +18,12 @@ class BeerTasting {
       tastingId: json['id'],
       beers: []);
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': title
+    };
+  }
 }
 
 class Beer {

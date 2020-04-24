@@ -19,3 +19,14 @@ ThunkAction<AppState> getTastingsThunk = (Store<AppState> store) async {
   
   store.dispatch(ActionPayload(action: BeerActions.TastingsLoaded, data: tastings));
 };
+
+ThunkAction<AppState> upsertTastingThunk(bool update, BeerTasting tasting) => (Store<AppState> store) async {
+  BeerTasting beerTasting = tasting;
+  if (update) {
+
+  } else {
+    beerTasting = await addBeerTasting(tasting);
+  }
+
+  store.dispatch(ActionPayload(action: update ? BeerActions.EditTasting : BeerActions.AddTasting, data: beerTasting));
+};

@@ -4,8 +4,8 @@ import 'package:flutterbeer/edit_views/beer_listings.dart';
 import 'package:flutterbeer/edit_views/edit_beer.dart';
 import 'package:flutterbeer/edit_views/edit_tasting.dart';
 import 'package:flutterbeer/model/app_model.dart';
+import 'package:flutterbeer/state/actions.dart';
 import 'package:flutterbeer/state/app_state.dart';
-import 'package:flutterbeer/state/reducer.dart';
 import 'package:redux/redux.dart';
 
 class CreateTasting extends StatefulWidget {
@@ -75,11 +75,7 @@ class _CreateTastingState extends State<CreateTasting>
                                 ));
                               return;
                             }
-                            store.dispatch(ActionPayload(
-                                action: update
-                                    ? BeerActions.EditTasting
-                                    : BeerActions.AddTasting,
-                                data: tasting));
+                            store.dispatch(upsertTastingThunk(update, tasting));
                             Navigator.pop(context);
                           }
                         }),

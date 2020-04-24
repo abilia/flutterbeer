@@ -26,3 +26,18 @@ Future<List<dynamic>> getBeers(tastingId) async {
           .map((e) => new Beer.fromJson(e))
           .toList();
 }
+
+Future<BeerTasting> addBeerTasting(BeerTasting beerTasting) async {
+  var client = http.Client();
+
+  final response = await client.post("$BASE_URL/api/v1/tastings",
+                                    headers: {"Content-Type": "application/json"},
+                                    body: json.encode(beerTasting.toJson()))
+                          .whenComplete(client.close);
+  
+  switch (response.statusCode) {
+    case 200: return new BeerTasting.fromJson(json.decode(response.body));
+    default: return null;
+  }
+
+}
