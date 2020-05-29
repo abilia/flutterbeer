@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterbeer/corona/model.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -7,6 +8,8 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutterbeer/edit_views/create_tasting.dart';
 import 'package:flutterbeer/edit_views/edit_beer.dart';
 import 'package:flutterbeer/edit_views/tastings_listings.dart';
+import 'package:flutterbeer/corona/beer_list.dart';
+import 'package:flutterbeer/corona/edit_beer.dart';
 
 import 'package:flutterbeer/state/actions.dart';
 import 'package:flutterbeer/state/reducer.dart';
@@ -37,6 +40,7 @@ class MyApp extends StatelessWidget {
           TastingsList.routeName: (context) => TastingsList(),
           SplashScreen.routeName: (context) => SplashScreen(),
           EditBeer.routeName: (context) => EditBeer(),
+          CoronaEditBeer.routeName: (context) => CoronaEditBeer(),
           VotePage.routeName: (context) => VotePage(),
           BeerVotePage.routeName: (context) => BeerVotePage(),
         },
@@ -74,6 +78,10 @@ class MainScreen extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  Future<void> _getCoronaBeers(context) async {
+    // StoreProvider.of(context).dispatch(getAllCoronaBeers);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,14 +91,17 @@ class MainScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Center(
-          child: Text('Corona edition'),
-        )
+        child: RefreshIndicator(
+          child: CoronaBeerList(),
+          onRefresh: () {
+            return _getCoronaBeers(context);
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         shape: StadiumBorder(),
         onPressed: () {
-          Navigator.pushNamed(context, TastingsList.routeName);
+          Navigator.pushNamed(context, CoronaEditBeer.routeName, arguments: CoronaBeer());
         },
         child: Icon(
           Icons.add,

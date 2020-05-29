@@ -1,3 +1,4 @@
+import 'package:flutterbeer/corona/model.dart';
 import 'package:flutterbeer/model/app_model.dart';
 import 'package:meta/meta.dart';
 
@@ -14,7 +15,9 @@ class ActionPayload {
 AppState appReducer(AppState state, dynamic action) {
   return AppState(
       tastings: tastingsReducer(state, action),
-      votes: votesReducer(state, action));
+      votes: votesReducer(state, action),
+      coronabeers: coronaReducer(state, action)
+  );
 }
 
 List<BeerTasting> tastingsReducer(AppState state, action) {
@@ -41,4 +44,8 @@ List<BeerVote> votesReducer(AppState state, action) {
       return [...state.votes.where((v) => v.beerId != vote.beerId), vote];
   }
   return state.votes;
+}
+
+List<CoronaBeer> coronaReducer(AppState state, action) {
+  return state.coronabeers;
 }
