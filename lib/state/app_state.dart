@@ -13,6 +13,6 @@ class AppState {
   factory AppState.initial() => AppState(
       tastings: List.unmodifiable([]),
       votes: List.unmodifiable([]),
-      coronabeers: List.unmodifiable([CoronaBeer(name: 'Beer1', drinker: 'Jojo', points: 0.0)])
+      coronabeers: List.unmodifiable([CoronaBeer(name: 'Beer1', drinker: 'Jojo2', points: 3.0)])
   );
 }

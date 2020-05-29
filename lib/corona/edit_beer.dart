@@ -10,12 +10,20 @@ class CoronaEditBeer extends StatefulWidget {
 
 class _CoronaEditBeerState extends State<CoronaEditBeer> {
   final _formKey = GlobalKey<FormState>();
-  final _controller = TextEditingController();
+  final _nameController = TextEditingController();
+  final _drinkerController = TextEditingController();
+
+  double _points;
+  void _setPoints(double points) => setState(() => _points = points);
 
   @override
   Widget build(BuildContext context) {
     CoronaBeer beer = ModalRoute.of(context).settings.arguments;
-    _controller.text = beer.name;
+    _nameController.text = beer.name;
+    _drinkerController.text = beer.drinker;
+    if (_points == null) {
+      _points = beer.points == null ? 0.0 : beer.points;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -25,7 +33,7 @@ class _CoronaEditBeerState extends State<CoronaEditBeer> {
             icon: Icon(Icons.check),
             onPressed: () {
               if (_formKey.currentState.validate()) {
-                beer.name = _controller.text;
+                beer.name = _nameController.text;
                 Navigator.pop(context, beer);
               }
             },
@@ -41,13 +49,34 @@ class _CoronaEditBeerState extends State<CoronaEditBeer> {
             children: <Widget>[
               Text('Name of your beer'),
               TextFormField(
-                controller: _controller,
+                controller: _nameController,
                 validator: (value) {
                   if (value.isEmpty) {
                     return 'The beer needs a name!';
                   }
                   return null;
                 },
+              ),
+              SizedBox(height: 30),
+              Text('Your name'),
+              TextFormField(
+                controller: _drinkerController,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Someone has to drink the beer!';
+                  }
+                  return null;
+                }
+              ),
+              SizedBox(height: 30,),
+              Text('Points'),
+              Text('${_points.toStringAsFixed(1)}p', style: TextStyle(fontWeight: FontWeight.bold)),
+              Slider(
+                value: _points,
+                onChanged: _setPoints,
+                max: 5.0,
+                min: 0.0,
+                divisions: 50,
               ),
             ],
           ),

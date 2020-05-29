@@ -16,16 +16,23 @@ class CoronaBeerCard extends StatelessWidget {
       child: InkWell(
         onTap: () => {if (onPressed != null) onPressed(beer)},
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("${beer.name}")
+                  Text("${beer.name}", style: Theme.of(context).textTheme.headline4),
+                  Text("${beer.drinker}", style: Theme.of(context).textTheme.headline6),
                 ],
               ),
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text("${beer.points.toStringAsFixed(1)}p",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+            ),
           ],
         ),
       ),
