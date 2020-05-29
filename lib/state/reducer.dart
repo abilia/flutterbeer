@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 import 'app_state.dart';
 
-enum BeerActions { TastingsLoaded, AddTasting, EditTasting, VotePlaced }
+enum BeerActions { TastingsLoaded, AddTasting, EditTasting, VotePlaced, BeersLoaded, BeerAdded, BeerUpdated }
 
 class ActionPayload {
   BeerActions action;
@@ -47,5 +47,18 @@ List<BeerVote> votesReducer(AppState state, action) {
 }
 
 List<CoronaBeer> coronaReducer(AppState state, action) {
+  switch (action.action) {
+    case BeerActions.BeersLoaded:
+      return action.data as List<CoronaBeer>;
+    case BeerActions.BeerAdded:
+      return [action.data as CoronaBeer, ...state.coronabeers].toList();
+    case BeerActions.BeerUpdated:
+      final CoronaBeer toBeEdited = action.data;
+      final coronabeers = state.coronabeers.toList();
+      return coronabeers
+        ..removeWhere((beer) => beer.beerId == toBeEdited.beerId)
+        ..add(toBeEdited);
+    default:
+  }
   return state.coronabeers;
 }
