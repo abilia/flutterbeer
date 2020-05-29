@@ -6,7 +6,7 @@ import 'package:flare_flutter/flare_actor.dart';
 
 import 'package:flutterbeer/edit_views/create_tasting.dart';
 import 'package:flutterbeer/edit_views/edit_beer.dart';
-import 'package:flutterbeer/edit_views/join_tasting.dart';
+import 'package:flutterbeer/edit_views/tastings_listings.dart';
 
 import 'package:flutterbeer/state/actions.dart';
 import 'package:flutterbeer/state/reducer.dart';
@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
         initialRoute: SplashScreen.routeName,
         routes: {
           MainScreen.routeName: (context) => MainScreen(),
+          TastingsList.routeName: (context) => TastingsList(),
           SplashScreen.routeName: (context) => SplashScreen(),
           EditBeer.routeName: (context) => EditBeer(),
           VotePage.routeName: (context) => VotePage(),
@@ -73,30 +74,23 @@ class MainScreen extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  Future<void> _getTastings(context) async {
-    StoreProvider.of<AppState>(context).dispatch(getTastingsThunk);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: Icon(Icons.local_bar),
-        title: Text('Beer tastings'),
+        title: Text('Friday beer'),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: RefreshIndicator(
-          child: JoinTasting(),
-          onRefresh: () {
-            return _getTastings(context);
-          },
-        ),
+        child: Center(
+          child: Text('Corona edition'),
+        )
       ),
       floatingActionButton: FloatingActionButton(
         shape: StadiumBorder(),
         onPressed: () {
-          Navigator.pushNamed(context, CreateTasting.routeName);
+          Navigator.pushNamed(context, TastingsList.routeName);
         },
         child: Icon(
           Icons.add,
