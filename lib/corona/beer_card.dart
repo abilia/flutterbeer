@@ -30,7 +30,7 @@ class CoronaBeerCard extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(10),
-              child: Text("${beer.points.toStringAsFixed(1)}p",
+              child: Text("${(beer.points / 10).toStringAsFixed(1)}p",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
             ),
           ],
